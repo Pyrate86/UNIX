@@ -12,7 +12,7 @@
 
 #include "sh1.h"
 
-int		tabsize(char **tab)
+static int		tabsize(char **tab)
 {
 	int i;
 
