@@ -12,12 +12,7 @@
 
 #include "sh1.h"
 
-void	get_paths(char *paths, t_env *myenv)
-{
-	myenv->paths = ft_strsplit(paths, ':');
-}
-
-void	get_env(char **env, t_env *myenv)
+static void	get_envsize(char **env, t_env *myenv)
 {
 	int i;
 
@@ -25,7 +20,19 @@ void	get_env(char **env, t_env *myenv)
 	while (env[i])
 		i++;
 	myenv->env_size = i;
-	myenv->myenv = (char ***)malloc(sizeof(char **) * i);
+}
+
+void		get_paths(char *paths, t_env *myenv)
+{
+	myenv->paths = ft_strsplit(paths, ':');
+}
+
+void		get_env(char **env, t_env *myenv)
+{
+	int i;
+
+	get_envsize(env, myenv);
+	myenv->myenv = (char ***)malloc(sizeof(char **) * myenv->env_size);
 	i = 0;
 	while (myenv->myenv[i])
 	{
@@ -36,7 +43,8 @@ void	get_env(char **env, t_env *myenv)
 	while (env[i])
 	{
 		myenv->myenv[i] = ft_strsplit(env[i], '=');
+		if ( ft_strcmp(myenv->myenv[i][0], "PATH") == 0)
+			get_paths(myenv->myenv[i][1], myenv);
 		i++;
 	}
-	get_paths(myenv->myenv[0][1], myenv);
 }

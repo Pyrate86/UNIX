@@ -32,17 +32,3 @@ void	print_env(t_env *e)
 		i++;
 	}
 }
-
-void	print_paths(t_env *e)
-{
-	int i;
-
-	i = 0;
-	while (e->paths[i])
-	{
-		ft_putstr("\033[95m");
-		ft_putstr(e->paths[i]);
-		ft_putendl("\033[0m");
-		i++;
-	}
-}

@@ -22,6 +22,16 @@ static int		tabsize(char **tab)
 	return (i);
 }
 
+static void		get_envsize(t_env *e)
+{
+	int i;
+
+	i = 0;
+	while (e->myenv[i])
+		i++;
+	e->env_size = i;
+}
+
 int		cd(t_env *e, char **args)
 {
 	(void)e;
@@ -36,42 +46,42 @@ int		env(t_env *e, char **args)
 	return (2);
 }
 
-#include <stdio.h>
-
 int		set_env(t_env *e, char **args)
 {
-	(void)e;
 	int	args_size;
 	int i;
 	char	***nenv;
 
 	args_size = tabsize(args);
-	(void)args_size;
-	nenv = (char ***)malloc(sizeof(char **) * (e->env_size + 1));
-	i = 0;
-	while (nenv[i])
+	if (args_size > 3)
+		ft_putendl_fd("setenv: Too many arguments.", 2);
+	else if (args_size > 1)
 	{
-		nenv[i] = (char **)malloc(sizeof(char *) * 2);
-		i++;
-	}
-	i = 0;
-	while (i < e->env_size)
-	{
-		int j = 0;
-		while (j < 2)
+		nenv = (char ***)malloc(sizeof(char **) * (e->env_size + 2));
+		i = 0;
+		while (i <= e->env_size)
 		{
-			printf("[%d][%d] = %s\n", i, j, e->myenv[i][j]);
-			nenv[i][j] = e->myenv[i][j];
-			j++;
+			nenv[i] = (char **)malloc(sizeof(char *) * 2);
+			i++;
 		}
-		i++;
+		i = 0;
+		while (i < e->env_size)
+		{
+			int j = 0;
+			while (j < 2)
+			{
+				nenv[i][j] = e->myenv[i][j];
+				j++;
+			}
+			i++;
+		}
+		nenv[e->env_size][0] = args[1];
+		nenv[e->env_size][1] = args[2] ? args[2] : "";
+		e->myenv = nenv;
+		get_envsize(e);
 	}
-	e->myenv[0][1] = "";
-	e->myenv = nenv;
-	ft_putstr(nenv[0][1]);
-	print_env(e);
-
-
+	else
+		print_env(e);
 	return (3);
 }
 

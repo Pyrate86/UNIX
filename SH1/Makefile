@@ -34,7 +34,7 @@ LIBFT		= -L$(LIBFT_PATH) $(LIBFT_NAME)
 LIBS		= $(LIBFT)
 
 CC			= gcc
-CFLAGS		= -Wall -Werror -Wextra
+CFLAGS		+= -Wall -Werror -Wextra
 
 SRC			= $(addprefix $(SRC_PATH),$(SRC_NAME))
 OBJS 		= $(addprefix $(OBJ_PATH),$(subst .c,.o,$(SRC_NAME)))
