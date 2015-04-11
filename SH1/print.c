@@ -17,11 +17,13 @@ void	print_env(t_env *e)
 	int i;
 	int j;
 
+	if (!e->myenv)
+		ft_putendl("ERREUR");
 	i = 0;
 	while (e->myenv[i])
 	{
 		j = 0;
-		while (e->myenv[i][j] != 0)
+		while (e->myenv[i][j])
 		{
 			if (j != 0)
 				ft_putstr("=");
