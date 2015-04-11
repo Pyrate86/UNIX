@@ -41,7 +41,6 @@ OBJS 		= $(addprefix $(OBJ_PATH),$(subst .c,.o,$(SRC_NAME)))
 BIN			= $(addprefix $(BIN_PATH),$(NAME))
 
 
-
 .PHONY: all clean fclean re proper libft
 
 all:	$(BIN)
@@ -49,7 +48,7 @@ all:	$(BIN)
 $(NAME): $(BIN)
 
 $(BIN): $(OBJS) $(HEADER) libft/libft.a | $(BIN_PATH)
-	$(CC) $(CFLAGS) -I$(INC_PATH) $(LIBS) $(OBJS) -o $(BIN)
+	$(CC) $(CFLAGS) -I$(INC_PATH) $(OBJS) -o $(BIN) $(LIBS)
 
 libft/libft.a:
 	make -C libft
